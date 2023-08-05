@@ -1,3 +1,50 @@
+/*
+Queries used for Tableau Project
+*/
+
+
+-- 1
+
+SELECT SUM(new_cases) AS total_cases, SUM(new_deaths) AS total_deaths, SUM(new_deaths)/SUM(new_cases)*100 AS DeathPercentage
+FROM PortfolioProject.coviddeaths
+-- WHERE location like '%states%' 
+WHERE continent IS NOT NULL -- where location = 'World'
+-- GROUP BY date
+ORDER BY 1,2;
+
+
+-- 2
+
+SELECT location, SUM(new_deaths) AS TotalDeathCount
+FROM PortfolioProject.coviddeaths
+-- WHERE location LIKE '%states%'
+WHERE continent IS NULL AND location NOT IN ('World', 'European Union', 'International') AND location NOT LIKE '%income%'
+GROUP BY location
+ORDER BY TotalDeathCount DESC;
+
+
+-- 3
+
+SELECT location, population, MAX(total_cases) AS HighestInfectionCount,  MAX((total_cases/population))*100 AS PercentPopulationInfected
+FROM PortfolioProject.coviddeaths
+-- WHERE location LIKE '%states%'
+GROUP BY location, population
+ORDER BY PercentPopulationInfected DESC;
+
+
+-- 4
+SELECT location, population, date, MAX(total_cases) AS HighestInfectionCount, MAX((total_cases/population))*100 AS PercentPopulationInfected
+FROM PortfolioProject.coviddeaths
+-- WHERE location LIKE '%states%'
+GROUP BY location, population, date
+ORDER BY PercentPopulationInfected DESC;
+
+
+
+
+
+-- Original Queries
+
 SELECT continent, Location, date, total_cases, new_cases, total_deaths, population
 FROM PortfolioProject.coviddeaths
 WHERE continent IS NOT NULL
