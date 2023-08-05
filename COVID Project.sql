@@ -42,8 +42,10 @@ ORDER BY PercentPopulationInfected DESC;
 
 
 
+/*
+Original Queries
+*/
 
--- Original Queries
 
 SELECT continent, Location, date, total_cases, new_cases, total_deaths, population
 FROM PortfolioProject.coviddeaths
